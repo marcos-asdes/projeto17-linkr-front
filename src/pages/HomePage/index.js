@@ -1,11 +1,17 @@
 import Header from "../../components/Header";
-import Main from "./style";
+import { Main, Container } from "./style";
 
 const HomePage = () => {
   return (
     <>
       <Header />
-      <Main>teste</Main>
+      <Container>
+        <Main>
+          <h2>timeline</h2>
+          {/* <NewPost />
+        <Posts /> */}
+        </Main>
+      </Container>
     </>
   );
 };

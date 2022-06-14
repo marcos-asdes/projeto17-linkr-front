@@ -35,6 +35,7 @@ const Container = styled.div`
     font-family: "Passion One", cursive;
     color: #ffffff;
     font-size: 50px;
+    letter-spacing: 0.05em;
   }
   menu {
     button {
