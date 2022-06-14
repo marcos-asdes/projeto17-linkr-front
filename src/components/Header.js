@@ -6,8 +6,8 @@ import styled from "styled-components";
 export default function Header() {
   return (
     <Container>
-      <logo>linkr</logo>
-      <menu>
+      <p>linkr</p>
+      <section>
         <IconContext.Provider value={{ className: "react-icons" }}>
           <button>
             <BsChevronDown />
@@ -17,7 +17,7 @@ export default function Header() {
           src="https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg"
           alt="profile-pic"
         />
-      </menu>
+      </section>
     </Container>
   );
 }
@@ -31,13 +31,13 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  logo {
+  p {
     font-family: "Passion One", cursive;
     color: #ffffff;
     font-size: 50px;
     letter-spacing: 0.05em;
   }
-  menu {
+  section {
     button {
       background-color: #151515;
       border: none;

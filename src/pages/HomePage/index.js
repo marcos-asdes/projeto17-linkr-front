@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Header from "../../components/Header";
 import {
   Main,
@@ -23,6 +25,9 @@ const HomePage = () => {
 };
 
 const NewPost = () => {
+  const [url, setUrl] = useState("");
+  const [description, setDescription] = useState("");
+
   return (
     <NewPostContainer>
       <PictureContainer>
@@ -33,20 +38,26 @@ const NewPost = () => {
       </PictureContainer>
       <InputsContainer>
         <span>What are you going to share today?</span>
-        <input
-          type="url"
-          name="url"
-          id="url"
-          placeholder="http://..."
-          required
-        ></input>
-        <input
-          type="text"
-          id="description"
-          name="description"
-          placeholder="Awesome article about #javascript"
-          required
-        ></input>
+        <form onSubmit={() => alert("Postei")}>
+          <input
+            type="url"
+            name="url"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            id="url"
+            placeholder="http://..."
+            required
+          ></input>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Awesome article about #javascript"
+          ></input>
+          <button type="submit">Publish</button>
+        </form>
       </InputsContainer>
     </NewPostContainer>
   );

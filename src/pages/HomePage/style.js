@@ -21,7 +21,7 @@ const Main = styled.div`
 `;
 
 const NewPostContainer = styled.div`
-  padding: 10px;
+  padding: 12px;
   width: 100%;
   background-color: #ffffff;
   border-radius: 16px;
@@ -68,6 +68,19 @@ const InputsContainer = styled.div`
   }
   input:focus {
     outline: none;
+  }
+  button {
+    height: 30px;
+    width: 100px;
+    float: right;
+    color: #ffffff;
+    background: #1877f2;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
   }
 `;
 
