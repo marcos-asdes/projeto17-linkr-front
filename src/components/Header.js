@@ -1,0 +1,53 @@
+import React from "react";
+import { BsChevronDown } from "react-icons/bs";
+import { IconContext } from "react-icons";
+import styled from "styled-components";
+
+export default function Header() {
+  return (
+    <Container>
+      <logo>linkr</logo>
+      <menu>
+        <IconContext.Provider value={{ className: "react-icons" }}>
+          <button>
+            <BsChevronDown />
+          </button>
+        </IconContext.Provider>
+        <img
+          src="https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg"
+          alt="profile-pic"
+        />
+      </menu>
+    </Container>
+  );
+}
+
+const Container = styled.div`
+  height: 60px;
+  background: #151515;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  logo {
+    font-family: "Passion One", cursive;
+    color: #ffffff;
+    font-size: 50px;
+  }
+  menu {
+    button {
+      background-color: #151515;
+      border: none;
+    }
+    .react-icons {
+      color: #ffffff;
+      font-size: 25px;
+    }
+    img {
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+`;
