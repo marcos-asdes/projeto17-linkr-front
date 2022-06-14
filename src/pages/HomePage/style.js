@@ -5,13 +5,13 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   background-color: #333333;
-  padding-top: 5%;
+  padding-top: 3%;
 `;
 
 const Main = styled.div`
   color: #ffffff;
   height: 100vh;
-  width: 60%;
+  width: 40%;
 
   h2 {
     font-family: "Oswald";
@@ -20,4 +20,55 @@ const Main = styled.div`
   }
 `;
 
-export { Main, Container };
+const NewPostContainer = styled.div`
+  padding: 10px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  margin: 40px 0 20px 0;
+`;
+
+const PictureContainer = styled.div`
+  img {
+    height: 50px;
+    border-radius: 50%;
+  }
+`;
+
+const InputsContainer = styled.div`
+  width: 100%;
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  span {
+    width: 100%;
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 40px;
+    color: #707070;
+  }
+  input {
+    background: #efefef;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    width: 100%;
+    margin-bottom: 8px;
+    padding-left: 12px;
+  }
+  input#description {
+    height: 80px;
+  }
+  input::placeholder {
+    font-size: 16px;
+    vertical-align: text-top;
+  }
+  input:focus {
+    outline: none;
+  }
+`;
+
+export { Main, Container, NewPostContainer, PictureContainer, InputsContainer };
