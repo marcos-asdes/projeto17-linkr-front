@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 import Header from "../../components/Header";
+import Post from "../../components/Post";
+import { publishPost } from "../../services/api";
 import {
   Main,
   Container,
@@ -17,7 +19,7 @@ const HomePage = () => {
         <Main>
           <h2>timeline</h2>
           <NewPost />
-          {/* <Posts /> */}
+          <Post />
         </Main>
       </Container>
     </>
@@ -25,8 +27,37 @@ const HomePage = () => {
 };
 
 const NewPost = () => {
-  const [url, setUrl] = useState("");
-  const [description, setDescription] = useState("");
+  const [formData, setFormData] = useState({
+    url: "",
+    description: "",
+  });
+
+  const [isLoading, setIsLoading] = useState({
+    placeholder: "Publish",
+    disabled: false,
+  });
+
+  const handleInputChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+
+    isLoading.placeholder = "Publishing...";
+    isLoading.disabled = true;
+    setIsLoading({ ...isLoading });
+
+    try {
+      await publishPost({ ...formData });
+      setIsLoading(false);
+    } catch {
+      alert("Houve um erro ao publicar seu link");
+      isLoading.placeholder = "Publish";
+      isLoading.disabled = false;
+      setIsLoading({ ...isLoading });
+    }
+  };
 
   return (
     <NewPostContainer>
@@ -38,13 +69,14 @@ const NewPost = () => {
       </PictureContainer>
       <InputsContainer>
         <span>What are you going to share today?</span>
-        <form onSubmit={() => alert("Postei")}>
+        <form onSubmit={handleSubmit}>
           <input
             type="url"
-            name="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
             id="url"
+            name="url"
+            value={formData.url}
+            onChange={handleInputChange}
+            disabled={isLoading.disabled && "disabled"}
             placeholder="http://..."
             required
           ></input>
@@ -52,11 +84,14 @@ const NewPost = () => {
             type="text"
             id="description"
             name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={formData.description}
+            onChange={handleInputChange}
+            disabled={isLoading.disabled && "disabled"}
             placeholder="Awesome article about #javascript"
           ></input>
-          <button type="submit">Publish</button>
+          <button type="submit" disabled={isLoading.disabled && "disabled"}>
+            {isLoading.placeholder}
+          </button>
         </form>
       </InputsContainer>
     </NewPostContainer>
