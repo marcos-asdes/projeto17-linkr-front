@@ -50,9 +50,6 @@ strong {
 * {
   box-sizing: border-box;
 }
-body {
-  background-color: #FFFFFF;
-}
 `;
 
 export default GlobalStyle;
