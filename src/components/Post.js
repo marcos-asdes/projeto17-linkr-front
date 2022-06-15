@@ -15,9 +15,7 @@ export default function Post({ post }) {
             <p className="url-description">{post.urlDescription}</p>
             <a href={post.url}>{post.url}</a>
           </InfoContainer>
-          <ImageContainer>
-            <img src={post.urlImage} alt={post.url} />
-          </ImageContainer>
+          <ImageContainer urlImage={post.urlImage}></ImageContainer>
         </SnippetContainer>
       </ContentContainer>
     </PostContainer>
@@ -63,8 +61,6 @@ const ContentContainer = styled.div`
 `;
 
 const SnippetContainer = styled.div`
-  width: 100%;
-  heigth: 10px;
   display: flex;
   flex-direction: row;
   border: 1px solid #4d4d4d;
@@ -72,6 +68,7 @@ const SnippetContainer = styled.div`
 `;
 
 const InfoContainer = styled.div`
+  width: 100%;
   padding: 10px 0 8px 10px;
   p.title {
     font-weight: 400;
@@ -95,10 +92,9 @@ const InfoContainer = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  width: 40%;
-  height: 100%;
-  img {
-    width: 100%;
-    border-radius: 0px 12px 13px 0px;
-  }
+  width: 50%;
+  border-radius: 0px 12px 13px 0px;
+  background-image: url(${(props) => props.urlImage});
+  background-position: center;
+  background-size: cover;
 `;

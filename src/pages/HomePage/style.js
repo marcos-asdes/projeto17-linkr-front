@@ -11,7 +11,7 @@ const Container = styled.div`
 const Main = styled.div`
   color: #ffffff;
   height: 100%;
-  width: 40%;
+  width: 45%;
 
   h2 {
     font-family: "Oswald";
