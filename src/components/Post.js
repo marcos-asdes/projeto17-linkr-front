@@ -9,7 +9,9 @@ export default function Post({ post }) {
       <ContentContainer>
         <p className="username">{post.username}</p>
         <p className="description">{post.description}</p>
-        <SnippetContainer>
+        <SnippetContainer
+          onClick={() => window.open(post.url, "_blank").focus()}
+        >
           <InfoContainer>
             <p className="title">{post.urlTitle}</p>
             <p className="url-description">{post.urlDescription}</p>
