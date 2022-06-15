@@ -1,31 +1,22 @@
 import styled from "styled-components";
 
-export default function Post() {
+export default function Post({ post }) {
   return (
     <PostContainer>
       <PictureContainer>
-        <img
-          src="https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg"
-          alt="profile-pic"
-        />
+        <img src={post.pictureURL} alt="" />
       </PictureContainer>
       <ContentContainer>
-        <p className="username">Nome do usuário</p>
-        <p className="description">Textinho que é opcional</p>
+        <p className="username">{post.username}</p>
+        <p className="description">{post.description}</p>
         <SnippetContainer>
           <InfoContainer>
-            <p className="title">Título do link</p>
-            <p className="url-description">
-              Descrição do link lalalala lalalalaa lalalalalalalala lalalal lala
-              la lalala lalalala
-            </p>
-            <a href="https://www.google.com">https://www.google.com</a>
+            <p className="title">{post.urlTitle}</p>
+            <p className="url-description">{post.urlDescription}</p>
+            <a href={post.url}>{post.url}</a>
           </InfoContainer>
           <ImageContainer>
-            <img
-              src="https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg"
-              alt="https://www.google.com"
-            />
+            <img src={post.urlImage} alt={post.url} />
           </ImageContainer>
         </SnippetContainer>
       </ContentContainer>

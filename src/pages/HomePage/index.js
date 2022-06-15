@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Header from "../../components/Header";
 import Post from "../../components/Post";
-import { publishPost } from "../../services/api";
+import { getAllPosts, publishPost } from "../../services/api";
 import {
   Main,
   Container,
@@ -19,11 +19,27 @@ const HomePage = () => {
         <Main>
           <h2>timeline</h2>
           <NewPost />
-          <Post />
+          <section>{RenderPosts()}</section>
         </Main>
       </Container>
     </>
   );
+};
+
+const RenderPosts = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getAllPosts();
+      console.log(response);
+      setPosts(response.data);
+    })();
+  }, []);
+
+  if (!posts) return <span>Loading...</span>;
+
+  return posts.map((post) => <Post post={post} key={post.id} />);
 };
 
 const NewPost = () => {
@@ -50,7 +66,14 @@ const NewPost = () => {
 
     try {
       await publishPost({ ...formData });
-      setIsLoading(false);
+
+      isLoading.placeholder = "Publish";
+      isLoading.disabled = false;
+      setIsLoading({ ...isLoading });
+
+      formData.url = "";
+      formData.description = "";
+      setFormData({ ...formData });
     } catch {
       alert("Houve um erro ao publicar seu link");
       isLoading.placeholder = "Publish";
