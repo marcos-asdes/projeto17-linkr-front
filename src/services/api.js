@@ -7,3 +7,7 @@ export const api = axios.create({
 export const publishPost = async (formData) => {
   await api.post("/posts", formData);
 };
+
+export const getPosts = async () => {
+  await api.get("/posts");
+};

@@ -10,7 +10,7 @@ const Container = styled.div`
 
 const Main = styled.div`
   color: #ffffff;
-  height: 100vh;
+  height: 100%;
   width: 40%;
 
   h2 {

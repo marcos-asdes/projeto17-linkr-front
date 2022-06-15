@@ -40,7 +40,7 @@ const PostContainer = styled.div`
   border-radius: 16px;
   display: flex;
   flex-direction: row;
-  margin: 40px 0 20px 0;
+  margin: 12px 0 10px 0;
 `;
 
 const PictureContainer = styled.div`
