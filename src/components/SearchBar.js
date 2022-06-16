@@ -1,25 +1,73 @@
+import { useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import styled from "styled-components";
 
 import { IconContext } from "react-icons";
 import { AiOutlineSearch } from "react-icons/ai";
-//import { AiOutlineClose } from "react-icons/ai";
 
 export default function SearchBar() {
+    const [filteredData, setFilteredData] = useState([]);
+
+    function handleFilter(event) {
+        const searchWord = event.target.value;
+
+        if (searchWord.length < 3) {
+            hideResults();
+        }
+        else {
+            console.log('Disparando pesquisa para o servidor...');
+        }
+    };
+
+    function hideResults() {
+        setFilteredData([]);
+    };
+
+    const searchResults = filteredData.map((user, index) => {
+        return (
+            <User key={index}>
+                <img src={user.pictureURL} alt="user icon" />
+                <span>{user.name}</span>
+            </User>
+        );
+    });
+
     return (
-        <div className="search">
+        <Content className="search">
             <SearchInputs>
                 <DebounceInput
                     type="text"
                     placeholder="Search for people"
+                    minLength={3}
+                    debounceTimeout={300}
+                    onChange={handleFilter}
+                    onFocus={handleFilter}
+                    onBlur={hideResults}
                 />
-                <IconContext.Provider value={{ className: "searchIcon" }}>
+                <IconContext.Provider value={{ className: "icon" }}>
                     <AiOutlineSearch />
                 </IconContext.Provider>
             </SearchInputs>
-        </div>
+            {
+                filteredData.length !== 0 && (
+                    <SearchResults>
+                        {searchResults}
+                    </SearchResults>
+                )
+            }
+        </Content>
     )
 };
+
+const Content = styled.div`
+    display: flex;
+    flex-direction: column;
+    background-color: #E7E7E7;
+    border-radius: 8px;
+    max-width: 563px;
+
+    z-index: 1;
+`;
 
 const SearchInputs = styled.div`
     width: 100%;
@@ -50,7 +98,7 @@ const SearchInputs = styled.div`
         outline: none;
     };
 
-    .searchIcon{
+    .icon{
         position: absolute;
         top: 9px;
         right: 23px;
@@ -58,4 +106,46 @@ const SearchInputs = styled.div`
         font-size: 27px;
         color: #C6C6C6;
     };
+`;
+
+const SearchResults = styled.div`
+    width: 100%;
+    height: fit-content;
+    max-height: 135px;
+    overflow: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar{
+        display: none;
+    };
+`;
+
+const User = styled.div`
+    width: 100%;
+    height: 65px;
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+    
+    img {
+        width: 39px;
+        height: 39px;
+        border-radius: 50%;
+        margin-left: 17px;
+    }
+
+    span {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19px;
+        line-height: 23px;
+        color: #515151;
+        margin-left: 12px;
+    }
+
+    &:hover{
+        background-color: lightgrey;
+    }
 `;

@@ -32,6 +32,7 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 
   p {
     font-family: "Passion One", cursive;
@@ -42,7 +43,10 @@ const Container = styled.div`
 
   .search{
     width: 68%;
-    max-width: 563px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -22px);
     @media (max-width: 613px) {
       display: none;
     }
