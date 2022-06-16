@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function Post({ post }) {
   return (
-    <PostContainer>
+    <PostContainer key={post.id}>
       <PictureContainer>
         <img src={post.pictureURL} alt="" />
       </PictureContainer>
@@ -32,6 +32,9 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin: 12px 0 10px 0;
+
+  @media (max-width: 613px) {
+  }
 `;
 
 const PictureContainer = styled.div`
