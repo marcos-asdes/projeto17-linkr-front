@@ -27,17 +27,43 @@ const HomePage = () => {
 };
 
 const RenderPosts = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState();
 
   useEffect(() => {
-    (async () => {
-      const response = await getAllPosts();
-      console.log(response);
-      setPosts(response.data);
+    (() => {
+      const response = getAllPosts();
+      response.then((res) => setPosts(res.data));
+      response.catch((e) =>
+        alert(
+          "An error occured while trying to fetch the posts, please refresh the page."
+        )
+      );
     })();
   }, []);
 
-  if (!posts) return <span>Loading...</span>;
+  if (!posts)
+    return (
+      <span
+        style={{
+          fontFamily: "Oswald",
+          fontSize: "20px",
+        }}
+      >
+        Loading...
+      </span>
+    );
+
+  if (!posts.length)
+    return (
+      <span
+        style={{
+          fontFamily: "Oswald",
+          fontSize: "20px",
+        }}
+      >
+        There are no posts yet
+      </span>
+    );
 
   return posts.map((post) => <Post post={post} key={post.id} />);
 };

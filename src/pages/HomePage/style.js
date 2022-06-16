@@ -18,6 +18,12 @@ const Main = styled.div`
     font-weight: 700;
     font-size: 38px;
   }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const NewPostContainer = styled.div`
