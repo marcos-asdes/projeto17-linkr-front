@@ -24,6 +24,14 @@ const Main = styled.div`
     flex-direction: column;
     align-items: center;
   }
+
+  @media (max-width: 613px) {
+    width: 100%;
+
+    h2 {
+      margin-left: 12px;
+    }
+  }
 `;
 
 const NewPostContainer = styled.div`
@@ -34,12 +42,20 @@ const NewPostContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin: 40px 0 20px 0;
+
+  @media (max-width: 613px) {
+    border-radius: 0;
+  }
 `;
 
 const PictureContainer = styled.div`
   img {
     height: 50px;
     border-radius: 50%;
+  }
+
+  @media (max-width: 613px) {
+    display: none;
   }
 `;
 

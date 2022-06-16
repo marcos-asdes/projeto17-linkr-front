@@ -34,6 +34,7 @@ const PostContainer = styled.div`
   margin: 12px 0 10px 0;
 
   @media (max-width: 613px) {
+    border-radius: 0;
   }
 `;
 
