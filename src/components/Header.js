@@ -41,9 +41,8 @@ const Container = styled.div`
   }
 
   .search{
-    @media(max-width: 800px){
-      width: 68%;
-    }
+    width: 68%;
+    max-width: 563px;
     @media (max-width: 613px) {
       display: none;
     }

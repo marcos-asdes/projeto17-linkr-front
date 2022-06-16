@@ -26,7 +26,7 @@ const SearchInputs = styled.div`
     display: flex;
     position: relative;
     input {
-        width: 563px;
+        width: 100%;
         height: 45px;
 
         display: flex;
@@ -39,11 +39,7 @@ const SearchInputs = styled.div`
 
         background: #FFFFFF;
         border: none;
-        border-radius: 8px;
-
-        @media(max-width: 800px) {
-            width: 100%;
-        } 
+        border-radius: 8px; 
     };
 
     input::placeholder{
