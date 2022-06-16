@@ -65,7 +65,7 @@ const RenderPosts = () => {
       </span>
     );
 
-  return posts.map((post) => <Post post={post} key={post.id} />);
+  return posts.map((post, index) => <Post post={post} key={index} />);
 };
 
 const NewPost = () => {
@@ -100,6 +100,8 @@ const NewPost = () => {
       formData.url = "";
       formData.description = "";
       setFormData({ ...formData });
+
+      window.location.reload();
     } catch {
       alert("Houve um erro ao publicar seu link");
       isLoading.placeholder = "Publish";
