@@ -6,12 +6,17 @@ const Container = styled.div`
   width: 100%;
   background-color: #333333;
   padding-top: 3%;
+
+  @media (max-width: 613px) {
+    padding-top: 20%;
+  }
 `;
 
 const Main = styled.div`
   color: #ffffff;
   height: 100%;
   width: 45%;
+  max-width: 611px;
 
   h2 {
     font-family: "Oswald";
@@ -43,6 +48,8 @@ const NewPostContainer = styled.div`
   flex-direction: row;
   margin: 40px 0 20px 0;
 
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
   @media (max-width: 613px) {
     border-radius: 0;
   }
@@ -71,6 +78,15 @@ const InputsContainer = styled.div`
     font-size: 25px;
     line-height: 40px;
     color: #707070;
+
+    @media (max-width: 613px) {
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 20px;
+      text-align: center;
+
+      padding-bottom: 10px;
+    }
   }
   input {
     background: #efefef;
@@ -80,6 +96,11 @@ const InputsContainer = styled.div`
     width: 100%;
     margin-bottom: 8px;
     padding-left: 12px;
+    
+    @media (max-width: 613px) {
+      font-size: 13px;
+      line-height: 16px;
+    }
   }
   input#description {
     height: 80px;
@@ -87,6 +108,10 @@ const InputsContainer = styled.div`
   input::placeholder {
     font-size: 16px;
     vertical-align: text-top;
+    @media (max-width: 613px) {
+      font-size: 13px;
+      line-height: 16px;
+    }
   }
   input:focus {
     outline: none;
