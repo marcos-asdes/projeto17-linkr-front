@@ -19,3 +19,19 @@ export const getAllPosts = async () => {
     },
   });
 };
+
+export const getPostsByHashtag = async (word) => {
+  return api.get(`/hashtag/${word}`, {
+    headers: {
+      Authorization: `Bearer 634fdb5a-04f8-44db-9b04-b61d90099b62`,
+    },
+  });
+};
+
+export const getTrandings = async () => {
+  return api.get(`/hashtag`, {
+    headers: {
+      Authorization: `Bearer 634fdb5a-04f8-44db-9b04-b61d90099b62`,
+    },
+  });
+};
