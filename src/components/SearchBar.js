@@ -101,6 +101,11 @@ const SearchInputs = styled.div`
         background: #FFFFFF;
         border: none;
         border-radius: 8px; 
+
+        @media (max-width: 613px) {
+            font-size: 17px;
+            line-height: 20px;
+        }
     };
 
     input::placeholder{

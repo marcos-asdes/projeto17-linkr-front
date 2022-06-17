@@ -57,12 +57,22 @@ const ContentContainer = styled.div`
     font-size: 19px;
     color: #ffffff;
     margin-bottom: 8px;
+
+    @media (max-width: 613px) {
+      font-size: 17px;
+      line-height: 20px;
+    }
   }
   p.description {
     font-weight: 400;
     font-size: 17px;
     color: #b7b7b7;
     margin-bottom: 10px;
+
+    @media (max-width: 613px) {
+      font-size: 15px;
+      line-height: 18px;
+    }
   }
 `;
 
@@ -80,7 +90,13 @@ const InfoContainer = styled.div`
     font-weight: 400;
     font-size: 18px;
     line-height: 28px;
+    margin-bottom: 5px;
     color: #cecece;
+
+    @media (max-width: 613px) {
+      font-size: 11px;
+      line-height: 13px;
+    }
   }
   p.url-description {
     font-weight: 400;
@@ -88,12 +104,23 @@ const InfoContainer = styled.div`
     line-height: 18px;
     color: #9b9595;
     margin-bottom: 8px;
+
+    @media (max-width: 613px) {
+      font-size: 9px;
+      line-height: 11px;
+    }
   }
   a {
     font-weight: 400;
     font-size: 14px;
     line-height: 16px;
     color: #cecece;
+    text-decoration: none;
+
+    @media (max-width: 613px) {
+      font-size: 9px;
+      line-height: 11px;
+    }
   }
 `;
 
@@ -103,4 +130,5 @@ const ImageContainer = styled.div`
   background-image: url(${(props) => props.urlImage});
   background-position: center;
   background-size: cover;
+  margin-left: 7px;
 `;

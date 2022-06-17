@@ -34,6 +34,10 @@ const Container = styled.div`
   align-items: center;
   position: relative;
 
+  @media (max-width: 613px) {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
   p {
     font-family: "Passion One", cursive;
     color: #ffffff;
@@ -42,13 +46,18 @@ const Container = styled.div`
   }
 
   .search{
-    width: 68%;
+    width: 60%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -22px);
     @media (max-width: 613px) {
-      display: none;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, 10px);
+
+      max-width: 350px;
+      width: 95%;
     }
   }
 
