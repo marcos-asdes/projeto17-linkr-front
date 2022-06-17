@@ -12,6 +12,7 @@ const Main = styled.div`
   color: #ffffff;
   height: 100%;
   width: 45%;
+  max-width: 611px;
 
   h2 {
     font-family: "Oswald";
