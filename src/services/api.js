@@ -19,3 +19,13 @@ export const getAllPosts = async () => {
     },
   });
 };
+
+export const getUsersByName = async (userFilter) => {
+  const lowerUserFilter = userFilter.toLowerCase();
+  const route = `/users?name=${lowerUserFilter}`;
+  return api.get(route, {
+    headers: {
+      Authorization: `Bearer 634fdb5a-04f8-44db-9b04-b61d90099b62`,
+    }
+  });
+};

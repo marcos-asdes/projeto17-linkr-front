@@ -5,17 +5,30 @@ import styled from "styled-components";
 import { IconContext } from "react-icons";
 import { AiOutlineSearch } from "react-icons/ai";
 
+import { getUsersByName } from "../services/api";
+
+const MIN_LENGTH_SEARCH = 3;
+const DEBOUNCE_TIME = 300;
+
 export default function SearchBar() {
     const [filteredData, setFilteredData] = useState([]);
 
-    function handleFilter(event) {
+    async function handleFilter(event) {
         const searchWord = event.target.value;
 
-        if (searchWord.length < 3) {
+        if (searchWord.length < MIN_LENGTH_SEARCH) {
             hideResults();
         }
         else {
-            console.log('Disparando pesquisa para o servidor...');
+            try {
+                const response = await getUsersByName(searchWord);
+                const users = response.data;
+                setFilteredData(users);
+            } catch (error) {
+                alert(
+                    "An error occured while trying to fetch the users, please refresh the page."
+                );
+            }
         }
     };
 
@@ -38,8 +51,8 @@ export default function SearchBar() {
                 <DebounceInput
                     type="text"
                     placeholder="Search for people"
-                    minLength={3}
-                    debounceTimeout={300}
+                    minLength={MIN_LENGTH_SEARCH}
+                    debounceTimeout={DEBOUNCE_TIME}
                     onChange={handleFilter}
                     onFocus={handleFilter}
                     onBlur={hideResults}
