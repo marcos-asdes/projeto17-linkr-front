@@ -34,8 +34,6 @@ const UserPosts = () => {
             ))
     }, [userId]);
 
-    console.log(userData);
-
     if (!userData) {
         return (
             <section>
