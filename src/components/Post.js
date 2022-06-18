@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Post({ post }) {
@@ -7,7 +8,9 @@ export default function Post({ post }) {
         <img src={post.pictureURL} alt="" />
       </PictureContainer>
       <ContentContainer>
-        <p className="username">{post.username}</p>
+        <Link to={`/user/${post.userId}`}>
+          <p className="username">{post.username}</p>
+        </Link>
         <p className="description">{post.description}</p>
         <SnippetContainer
           onClick={() => window.open(post.url, "_blank").focus()}
@@ -15,7 +18,7 @@ export default function Post({ post }) {
           <InfoContainer>
             <p className="title">{post.urlTitle}</p>
             <p className="url-description">{post.urlDescription}</p>
-            <a href={post.url}>{post.url}</a>
+            <a href={post.url} onClick={(e) => {e.preventDefault()}}>{post.url}</a>
           </InfoContainer>
           <ImageContainer urlImage={post.urlImage}></ImageContainer>
         </SnippetContainer>

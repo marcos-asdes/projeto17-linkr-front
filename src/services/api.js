@@ -29,3 +29,12 @@ export const getUsersByName = async (userFilter) => {
     }
   });
 };
+
+export const getUserPosts = async (userId) => {
+  const route = `/users/${userId}`;
+  return api.get(route, {
+    headers: {
+      Authorization: `Bearer 634fdb5a-04f8-44db-9b04-b61d90099b62`,
+    }
+  });
+};

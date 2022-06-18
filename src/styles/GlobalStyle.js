@@ -53,6 +53,10 @@ strong {
 body {
   background-color: #333333;
 }
+
+a {
+	text-decoration: none;
+}
 `;
 
 export default GlobalStyle;

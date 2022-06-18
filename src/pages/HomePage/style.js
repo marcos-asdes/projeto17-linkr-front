@@ -35,6 +35,7 @@ const Main = styled.div`
 
     h2 {
       margin-left: 12px;
+      font-size: 33px;
     }
   }
 `;
@@ -131,4 +132,13 @@ const InputsContainer = styled.div`
   }
 `;
 
-export { Main, Container, NewPostContainer, PictureContainer, InputsContainer };
+const Message = styled.span`
+    font-family: "Oswald";
+    font-size: 30px;
+
+    @media (max-width: 613px) {
+      font-size: 20px;
+    }
+`;
+
+export { Main, Container, NewPostContainer, PictureContainer, InputsContainer, Message };

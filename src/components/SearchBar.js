@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DebounceInput } from "react-debounce-input";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { IconContext } from "react-icons";
@@ -12,6 +13,8 @@ const DEBOUNCE_TIME = 300;
 
 export default function SearchBar() {
     const [filteredData, setFilteredData] = useState([]);
+
+    const navigate = useNavigate();
 
     async function handleFilter(event) {
         const searchWord = event.target.value;
@@ -38,7 +41,7 @@ export default function SearchBar() {
 
     const searchResults = filteredData.map((user, index) => {
         return (
-            <User key={index}>
+            <User key={index} onMouseDown={() => { navigate(`/user/${user.id}`) }}>
                 <img src={user.pictureURL} alt="user icon" />
                 <span>{user.name}</span>
             </User>
@@ -46,7 +49,7 @@ export default function SearchBar() {
     });
 
     return (
-        <Content className="search">
+        <Content className="search" onBlur={hideResults} >
             <SearchInputs>
                 <DebounceInput
                     type="text"
@@ -55,7 +58,7 @@ export default function SearchBar() {
                     debounceTimeout={DEBOUNCE_TIME}
                     onChange={handleFilter}
                     onFocus={handleFilter}
-                    onBlur={hideResults}
+
                 />
                 <IconContext.Provider value={{ className: "icon" }}>
                     <AiOutlineSearch />
@@ -63,7 +66,7 @@ export default function SearchBar() {
             </SearchInputs>
             {
                 filteredData.length !== 0 && (
-                    <SearchResults>
+                    <SearchResults >
                         {searchResults}
                     </SearchResults>
                 )

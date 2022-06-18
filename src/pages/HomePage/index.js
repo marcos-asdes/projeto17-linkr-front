@@ -9,6 +9,7 @@ import {
   NewPostContainer,
   PictureContainer,
   InputsContainer,
+  Message
 } from "./style";
 
 const HomePage = () => {
@@ -42,27 +43,11 @@ const RenderPosts = () => {
   }, []);
 
   if (!posts)
-    return (
-      <span
-        style={{
-          fontFamily: "Oswald",
-          fontSize: "20px",
-        }}
-      >
-        Loading...
-      </span>
-    );
+    return (<Message>Loading...</Message>);
 
   if (!posts.length)
     return (
-      <span
-        style={{
-          fontFamily: "Oswald",
-          fontSize: "20px",
-        }}
-      >
-        There are no posts yet
-      </span>
+      <Message>There are no posts yet</Message>
     );
 
   return posts.map((post, index) => <Post post={post} key={index} />);

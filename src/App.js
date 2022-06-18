@@ -4,6 +4,7 @@ import GlobalStyle from "./styles/GlobalStyle";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import UserPage from "./pages/UserPage";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Route path="/" element={<LoginPage />} />
         <Route path="/sign-up" element={<RegisterPage />} />
         <Route path="/timeline" element={<HomePage />} />
+        <Route path="/user/:id" element={<UserPage />} />
       </Routes>
       <GlobalStyle />
     </Router>
