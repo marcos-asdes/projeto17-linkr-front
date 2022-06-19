@@ -3,11 +3,23 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import styled from "styled-components";
 import { useState } from "react";
+import ReactTooltip from "react-tooltip";
 import { dislikePost, likePost } from "../services/api";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(false);
   const [countLikes, setCountLikes] = useState(post.countLikes);
+
+  function getTooltip(likes) {
+    if (likes.length) {
+      // const notUser = likes.filter((item) => item.id !== user.id);
+      console.log(likes);
+      return likes[0].username;
+    }
+    if (!likes.length) {
+      return "No likes yet";
+    }
+  }
 
   return (
     <PostContainer key={post.postId}>
@@ -35,10 +47,11 @@ export default function Post({ post }) {
             )}
           </button>
         </IconContext.Provider>
+        <ReactTooltip place="bottom" type="light" effect="solid" />
         {countLikes === 1 ? (
-          <p>{countLikes} like</p>
+          <p data-tip={getTooltip(post.likes)}>{countLikes} like</p>
         ) : (
-          <p>{countLikes} likes</p>
+          <p data-tip={getTooltip(post.likes)}>{countLikes} likes</p>
         )}
       </PictureContainer>
       <ContentContainer>
