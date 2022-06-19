@@ -17,21 +17,19 @@ export default function SignIn() {
   const setToken = useContext(TokenContext);
   const navigate = useNavigate();
 
-  async function handleSignin() {
-    try {
-      const URL = "/auth/sign-in";
-      const body = {
-        email: formData.email,
-        password: formData.password,
-      };
-      const response = await axios.post(URL, body);
-      response.status === 200
-        ? handleSuccess(response.token)
-        : handleError(response.data);
-    } catch (error) {
-      console.log(error);
-      resetAll();
-    }
+ async function handleSignin() {
+        try {
+            const URL = "http://localhost:5000/auth/sign-in";
+            const body = {
+                email: formData.email,
+                password: formData.password
+            }
+            const response = await axios.post(URL, body);
+            response.status === 200 ? handleSuccess(response.token) : handleError(response.data);
+        } catch (error){
+            console.log(error);
+            resetAll();
+        }
   }
 
   function handleSuccess(res) {
