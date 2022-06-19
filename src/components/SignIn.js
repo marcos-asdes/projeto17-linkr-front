@@ -19,7 +19,7 @@ export default function SignIn() {
 
     async function handleSignin() {
         try {
-            const URL = "/auth/sign-in";
+            const URL = "http://localhost:5000/auth/sign-in";
             const body = {
                 email: formData.email,
                 password: formData.password
