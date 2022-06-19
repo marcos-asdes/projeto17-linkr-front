@@ -1,11 +1,25 @@
 import { Link } from "react-router-dom";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { IconContext } from "react-icons";
 import styled from "styled-components";
+import { useState } from "react";
 
 export default function Post({ post }) {
+  const [like, setLike] = useState(false);
+
   return (
     <PostContainer key={post.id}>
       <PictureContainer>
         <img src={post.pictureURL} alt="" />
+        <IconContext.Provider value={{ className: "react-icons" }}>
+          <button like={like} onClick={() => setLike(!like)}>
+            {!like ? (
+              <AiOutlineHeart />
+            ) : (
+              <AiFillHeart style={{ color: "#AC0000" }} />
+            )}
+          </button>
+        </IconContext.Provider>
       </PictureContainer>
       <ContentContainer>
         <Link to={`/user/${post.userId}`}>
@@ -18,7 +32,14 @@ export default function Post({ post }) {
           <InfoContainer>
             <p className="title">{post.urlTitle}</p>
             <p className="url-description">{post.urlDescription}</p>
-            <a href={post.url} onClick={(e) => {e.preventDefault()}}>{post.url}</a>
+            <a
+              href={post.url}
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              {post.url}
+            </a>
           </InfoContainer>
           <ImageContainer urlImage={post.urlImage}></ImageContainer>
         </SnippetContainer>
@@ -42,9 +63,19 @@ const PostContainer = styled.div`
 `;
 
 const PictureContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   img {
     height: 50px;
     border-radius: 50%;
+  }
+
+  button {
+    margin-top: 12px;
+    background-color: #171717;
+    color: #ffffff;
+    border: none;
+    font-size: 20px;
   }
 `;
 
