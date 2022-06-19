@@ -3,17 +3,30 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import styled from "styled-components";
 import { useState } from "react";
+import { dislikePost, likePost } from "../services/api";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(false);
+  console.log(post.postId);
 
   return (
-    <PostContainer key={post.id}>
+    <PostContainer key={post.postId}>
       <PictureContainer>
         <img src={post.pictureURL} alt="" />
         <IconContext.Provider value={{ className: "react-icons" }}>
-          <button like={like} onClick={() => setLike(!like)}>
-            {!like ? (
+          <button
+            like={like.toString()}
+            onClick={() => {
+              if (like === true) {
+                dislikePost({ postId: post.postId });
+              }
+              if (like === false) {
+                likePost({ postId: post.postId });
+              }
+              setLike(!like);
+            }}
+          >
+            {like === false ? (
               <AiOutlineHeart />
             ) : (
               <AiFillHeart style={{ color: "#AC0000" }} />
