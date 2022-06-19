@@ -8,34 +8,31 @@ import Trending from '../components/Trending';
 
 export default function HashtagPage(){
     const  {word} = useParams()
+    const [posts, setPosts] = useState([])
+    const [searchedWord,setSearchedWord]=useState('')
+    async function renderPosts(word){
+        const response = await getPostsByHashtag(word);
+        console.log(response);
+        setPosts(response.data)
+        setSearchedWord(word)
+    }
+    if(word!=searchedWord){renderPosts(word)}
     return(
         <>
       <Header />
       <Container>
         <Main>
           <h2>#{word}</h2>
-          <section>{RenderPosts(word)}</section>
+          <div className='pageOrganizer'>
+          <section>{posts.map(post => (<Post post={post} key={post.id} />))}</section>
+          <Trending />
+          </div>
         </Main>
-        <Trending />
+        
       </Container>
     </>
     )
 }
-const RenderPosts = (word) => {
-    const [posts, setPosts] = useState([]);
-  
-    useEffect(() => {
-      (async () => {
-        const response = await getPostsByHashtag(word);
-        console.log(response);
-        setPosts(response.data);
-      })();
-    }, []);
-  
-    if (!posts) return <span>Loading...</span>;
-  
-    return posts.map((post) => <Post post={post} key={post.id} />);
-  };
 
 const Container = styled.div`
   display: flex;
@@ -49,7 +46,7 @@ const Main = styled.div`
   color: #ffffff;
   height: 100%;
   width: 45%;
-
+  .pageOrganizer{display:flex;}
   h2 {
     font-family: "Oswald";
     font-weight: 700;

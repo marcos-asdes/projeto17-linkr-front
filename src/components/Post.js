@@ -1,6 +1,17 @@
 import styled from "styled-components";
-
+import {Link} from 'react-router-dom'
+import { useEffect } from "react";
 export default function Post({ post }) {
+  function readHashtags(word){
+      if(word[0]==='#')return(<Link to={`/hashtag/${word.replace('#', '')}`}><span className="hashtag">{word}</span></Link>)
+      else return(<span>{word}</span>)
+  }
+  const newList=[]
+  const oldList=post.description.split(' ')
+  for(let k=0;k<oldList.length;k++){
+    newList.push(oldList[k])
+    if(k!=oldList.length-1){newList.push(' ')}
+  }
   return (
     <PostContainer>
       <PictureContainer>
@@ -8,7 +19,7 @@ export default function Post({ post }) {
       </PictureContainer>
       <ContentContainer>
         <p className="username">{post.username}</p>
-        <p className="description">{post.description}</p>
+        <p className="description">{newList.map(readHashtags)}</p>
         <SnippetContainer
           onClick={() => window.open(post.url, "_blank").focus()}
         >
@@ -59,6 +70,9 @@ const ContentContainer = styled.div`
     font-size: 17px;
     color: #b7b7b7;
     margin-bottom: 10px;
+  }
+  .hashtag{
+    font-weight:900
   }
 `;
 

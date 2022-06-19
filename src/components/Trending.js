@@ -30,7 +30,7 @@ const Container=styled.div`
 width: 301px;
 height: 406px;
 color:white;
-
+margin:12px 0 0 12px;
 background: #171717;
 border-radius: 16px;
 h3 {
@@ -54,5 +54,6 @@ p {
     margin-left:15px;
     margin-top:12px;
     color:white;
+    text-decoration: none;
   }
 `
