@@ -7,11 +7,11 @@ import { dislikePost, likePost } from "../services/api";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(false);
-  console.log(post.postId);
+  const [countLikes, setCountLikes] = useState(post.countLikes);
 
   return (
     <PostContainer key={post.postId}>
-      <PictureContainer>
+      <PictureContainer countLikes={countLikes}>
         <img src={post.pictureURL} alt="" />
         <IconContext.Provider value={{ className: "react-icons" }}>
           <button
@@ -19,9 +19,11 @@ export default function Post({ post }) {
             onClick={() => {
               if (like === true) {
                 dislikePost({ postId: post.postId });
+                setCountLikes(Number(countLikes) - 1);
               }
               if (like === false) {
                 likePost({ postId: post.postId });
+                setCountLikes(Number(countLikes) + 1);
               }
               setLike(!like);
             }}
@@ -33,6 +35,11 @@ export default function Post({ post }) {
             )}
           </button>
         </IconContext.Provider>
+        {countLikes === 1 ? (
+          <p>{countLikes} like</p>
+        ) : (
+          <p>{countLikes} likes</p>
+        )}
       </PictureContainer>
       <ContentContainer>
         <Link to={`/user/${post.userId}`}>
@@ -89,6 +96,15 @@ const PictureContainer = styled.div`
     color: #ffffff;
     border: none;
     font-size: 20px;
+  }
+
+  p {
+    color: #ffffff;
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
   }
 `;
 
