@@ -1,11 +1,58 @@
 import { Link } from "react-router-dom";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { IconContext } from "react-icons";
 import styled from "styled-components";
+import { useState } from "react";
+import ReactTooltip from "react-tooltip";
+import { dislikePost, likePost } from "../services/api";
 
 export default function Post({ post }) {
+  const [like, setLike] = useState(false);
+  const [countLikes, setCountLikes] = useState(post.countLikes);
+
+  function getTooltip(likes) {
+    if (likes.length) {
+      // const notUser = likes.filter((item) => item.id !== user.id);
+      console.log(likes);
+      return likes[0].username;
+    }
+    if (!likes.length) {
+      return "No likes yet";
+    }
+  }
+
   return (
-    <PostContainer key={post.id}>
-      <PictureContainer>
+    <PostContainer key={post.postId}>
+      <PictureContainer countLikes={countLikes}>
         <img src={post.pictureURL} alt="" />
+        <IconContext.Provider value={{ className: "react-icons" }}>
+          <button
+            like={like.toString()}
+            onClick={() => {
+              if (like === true) {
+                dislikePost({ postId: post.postId });
+                setCountLikes(Number(countLikes) - 1);
+              }
+              if (like === false) {
+                likePost({ postId: post.postId });
+                setCountLikes(Number(countLikes) + 1);
+              }
+              setLike(!like);
+            }}
+          >
+            {like === false ? (
+              <AiOutlineHeart />
+            ) : (
+              <AiFillHeart style={{ color: "#AC0000" }} />
+            )}
+          </button>
+        </IconContext.Provider>
+        <ReactTooltip place="bottom" type="light" effect="solid" />
+        {countLikes === 1 ? (
+          <p data-tip={getTooltip(post.likes)}>{countLikes} like</p>
+        ) : (
+          <p data-tip={getTooltip(post.likes)}>{countLikes} likes</p>
+        )}
       </PictureContainer>
       <ContentContainer>
         <Link to={`/user/${post.userId}`}>
@@ -18,7 +65,14 @@ export default function Post({ post }) {
           <InfoContainer>
             <p className="title">{post.urlTitle}</p>
             <p className="url-description">{post.urlDescription}</p>
-            <a href={post.url} onClick={(e) => {e.preventDefault()}}>{post.url}</a>
+            <a
+              href={post.url}
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              {post.url}
+            </a>
           </InfoContainer>
           <ImageContainer urlImage={post.urlImage}></ImageContainer>
         </SnippetContainer>
@@ -42,9 +96,28 @@ const PostContainer = styled.div`
 `;
 
 const PictureContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   img {
     height: 50px;
     border-radius: 50%;
+  }
+
+  button {
+    margin-top: 12px;
+    background-color: #171717;
+    color: #ffffff;
+    border: none;
+    font-size: 20px;
+  }
+
+  p {
+    color: #ffffff;
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
   }
 `;
 
