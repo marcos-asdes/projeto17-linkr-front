@@ -2,20 +2,40 @@ import { Link } from "react-router-dom";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import styled from "styled-components";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import ReactTooltip from "react-tooltip";
 import { dislikePost, likePost } from "../services/api";
-import UserContext from "./../contexts/UserContext.js";
+// import UserContext from "./../contexts/UserContext.js";
 import TokenContext from "../contexts/TokenContext";
 
 export default function Post({ post }) {
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
   const { token } = useContext(TokenContext);
 
   const [like, setLike] = useState(false);
   const [countLikes, setCountLikes] = useState(post.countLikes);
   const [tooltip, setTooltip] = useState("teste");
 
+  function readHashtags(word) {
+    if (word[0] === "#") {
+      return (
+        <Link to={`/hashtag/${word.replace("#", "")}`}>
+          <span className="hashtag">{word}</span>
+        </Link>
+      );
+    } else {
+      return <span>{word}</span>;
+    }
+  }
+
+  const newList = [];
+  const oldList = post.description.split(" ");
+  for (let k = 0; k < oldList.length; k++) {
+    newList.push(oldList[k]);
+    if (k !== oldList.length - 1) {
+      newList.push(" ");
+    }
+  }
   // useEffect(() => {
   //   getTooltip();
   // }, []);
@@ -106,6 +126,7 @@ export default function Post({ post }) {
         <Link to={`/user/${post.userId}`}>
           <p className="username">{post.username}</p>
         </Link>
+        {/* <p className="description">{newList.map(readHashtags)}</p> */}
         <p className="description">{post.description}</p>
         <SnippetContainer
           onClick={() => window.open(post.url, "_blank").focus()}
@@ -197,6 +218,9 @@ const ContentContainer = styled.div`
       font-size: 15px;
       line-height: 18px;
     }
+  }
+  .hashtag {
+    font-weight: 900;
   }
 `;
 

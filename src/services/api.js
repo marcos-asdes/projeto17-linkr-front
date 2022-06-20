@@ -20,10 +20,26 @@ export const getAllPosts = async (token) => {
   });
 };
 
+export const getPostsByHashtag = async (word, token) => {
+  return api.get(`/hashtag/${word}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export const getUsersByName = async (userFilter, token) => {
   const lowerUserFilter = userFilter.toLowerCase();
   const route = `/users?name=${lowerUserFilter}`;
   return api.get(route, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const getTrandings = async (token) => {
+  return api.get(`/hashtag`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
