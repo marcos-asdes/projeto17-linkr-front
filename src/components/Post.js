@@ -20,7 +20,12 @@ export default function Post({ post }) {
     if (word[0] === "#") {
       return (
         <Link to={`/hashtag/${word.replace("#", "")}`}>
-          <span className="hashtag">{word}</span>
+          <span
+            className="hashtag"
+            style={{ color: "#ffffff", fontWeight: 700 }}
+          >
+            {word}
+          </span>
         </Link>
       );
     } else {
@@ -126,8 +131,7 @@ export default function Post({ post }) {
         <Link to={`/user/${post.userId}`}>
           <p className="username">{post.username}</p>
         </Link>
-        {/* <p className="description">{newList.map(readHashtags)}</p> */}
-        <p className="description">{post.description}</p>
+        <p className="description">{newList.map(readHashtags)}</p>
         <SnippetContainer
           onClick={() => window.open(post.url, "_blank").focus()}
         >
@@ -259,6 +263,7 @@ const InfoContainer = styled.div`
     }
   }
   a {
+    color: #ffffff;
     font-weight: 400;
     font-size: 14px;
     line-height: 16px;

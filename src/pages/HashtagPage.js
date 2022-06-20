@@ -30,7 +30,7 @@ export default function HashtagPage() {
           <div className="pageOrganizer">
             <section>
               {posts.map((post) => (
-                <Post post={post} key={post.id} />
+                <Post post={post} />
               ))}
             </section>
             <Trending />
