@@ -97,7 +97,7 @@ const InputsContainer = styled.div`
     width: 100%;
     margin-bottom: 8px;
     padding-left: 12px;
-    
+
     @media (max-width: 613px) {
       font-size: 13px;
       line-height: 16px;
@@ -133,12 +133,19 @@ const InputsContainer = styled.div`
 `;
 
 const Message = styled.span`
-    font-family: "Oswald";
-    font-size: 30px;
+  font-family: "Oswald";
+  font-size: 30px;
 
-    @media (max-width: 613px) {
-      font-size: 20px;
-    }
+  @media (max-width: 613px) {
+    font-size: 20px;
+  }
 `;
 
-export { Main, Container, NewPostContainer, PictureContainer, InputsContainer, Message };
+export {
+  Main,
+  Container,
+  NewPostContainer,
+  PictureContainer,
+  InputsContainer,
+  Message,
+};

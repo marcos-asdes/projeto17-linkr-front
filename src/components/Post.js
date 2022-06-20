@@ -2,25 +2,40 @@ import { Link } from "react-router-dom";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import styled from "styled-components";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 import { dislikePost, likePost } from "../services/api";
-// import UserContext from "./../contexts/UserContext.js";
+import UserContext from "./../contexts/UserContext.js";
 import TokenContext from "../contexts/TokenContext";
 
 export default function Post({ post }) {
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { token } = useContext(TokenContext);
 
   const [like, setLike] = useState(false);
   const [countLikes, setCountLikes] = useState(post.countLikes);
-  const [tooltip, setTooltip] = useState("teste");
+  const [tooltip, setTooltip] = useState(post.countLikes);
+
+  useEffect(() => {
+    let userLiked;
+    if (post.likes.length) {
+      userLiked = post.likes.find((item) => item.userId === user.id);
+    }
+    if (userLiked) {
+      setLike(!like);
+    }
+  }, []);
 
   function readHashtags(word) {
     if (word[0] === "#") {
       return (
         <Link to={`/hashtag/${word.replace("#", "")}`}>
-          <span className="hashtag">{word}</span>
+          <span
+            className="hashtag"
+            style={{ color: "#ffffff", fontWeight: 700 }}
+          >
+            {word}
+          </span>
         </Link>
       );
     } else {
@@ -94,7 +109,6 @@ export default function Post({ post }) {
         <img src={post.pictureURL} alt="" />
         <IconContext.Provider value={{ className: "react-icons" }}>
           <button
-            like={like.toString()}
             onClick={() => {
               // getTooltip();
               if (like === true) {
@@ -126,8 +140,7 @@ export default function Post({ post }) {
         <Link to={`/user/${post.userId}`}>
           <p className="username">{post.username}</p>
         </Link>
-        {/* <p className="description">{newList.map(readHashtags)}</p> */}
-        <p className="description">{post.description}</p>
+        <p className="description">{newList.map(readHashtags)}</p>
         <SnippetContainer
           onClick={() => window.open(post.url, "_blank").focus()}
         >
@@ -259,6 +272,7 @@ const InfoContainer = styled.div`
     }
   }
   a {
+    color: #ffffff;
     font-weight: 400;
     font-size: 14px;
     line-height: 16px;

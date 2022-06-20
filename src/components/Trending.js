@@ -32,7 +32,7 @@ const Container = styled.div`
   width: 301px;
   height: 406px;
   color: white;
-  margin: 12px 0 0 12px;
+  margin: 72px 0 0 18px;
   background: #171717;
   border-radius: 16px;
   h3 {
@@ -58,5 +58,9 @@ const Container = styled.div`
     margin-top: 12px;
     color: white;
     text-decoration: none;
+  }
+
+  @media (max-width: 613px) {
+    display: none;
   }
 `;
