@@ -1,24 +1,83 @@
+import { Link } from "react-router-dom";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { IconContext } from "react-icons";
 import styled from "styled-components";
 import {Link} from 'react-router-dom'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ReactTooltip from "react-tooltip";
+import { dislikePost, likePost } from "../services/api";
+
 export default function Post({ post }) {
+  const [like, setLike] = useState(false);
+  const [countLikes, setCountLikes] = useState(post.countLikes);
+  
   function readHashtags(word){
-      if(word[0]==='#')return(<Link to={`/hashtag/${word.replace('#', '')}`}><span className="hashtag">{word}</span></Link>)
-      else return(<span>{word}</span>)
+    if(word[0]==='#') {
+      return(
+        <Link to={`/hashtag/${word.replace('#', '')}`}>
+          <span className="hashtag">{word}</span>
+        </Link>
+      )
+    } else {
+      return(<span>{word}</span>)
+    };
   }
-  const newList=[]
-  const oldList=post.description.split(' ')
-  for(let k=0;k<oldList.length;k++){
+  
+  const newList = [];
+  const oldList = post.description.split(' ');
+  for(let k=0; k < oldList.length; k++){
     newList.push(oldList[k])
     if(k!=oldList.length-1){newList.push(' ')}
   }
+
+  function getTooltip(likes) {
+    if (likes.length) {
+      // const notUser = likes.filter((item) => item.id !== user.id);
+      console.log(likes);
+      return likes[0].username;
+    }
+    if (!likes.length) {
+      return "No likes yet";
+    }
+  }
+
   return (
-    <PostContainer>
-      <PictureContainer>
+    <PostContainer key={post.postId}>
+      <PictureContainer countLikes={countLikes}>
         <img src={post.pictureURL} alt="" />
+        <IconContext.Provider value={{ className: "react-icons" }}>
+          <button
+            like={like.toString()}
+            onClick={() => {
+              if (like === true) {
+                dislikePost({ postId: post.postId });
+                setCountLikes(Number(countLikes) - 1);
+              }
+              if (like === false) {
+                likePost({ postId: post.postId });
+                setCountLikes(Number(countLikes) + 1);
+              }
+              setLike(!like);
+            }}
+          >
+            {like === false ? (
+              <AiOutlineHeart />
+            ) : (
+              <AiFillHeart style={{ color: "#AC0000" }} />
+            )}
+          </button>
+        </IconContext.Provider>
+        <ReactTooltip place="bottom" type="light" effect="solid" />
+        {countLikes === 1 ? (
+          <p data-tip={getTooltip(post.likes)}>{countLikes} like</p>
+        ) : (
+          <p data-tip={getTooltip(post.likes)}>{countLikes} likes</p>
+        )}
       </PictureContainer>
       <ContentContainer>
-        <p className="username">{post.username}</p>
+        <Link to={`/user/${post.userId}`}>
+          <p className="username">{post.username}</p>
+        </Link>
         <p className="description">{newList.map(readHashtags)}</p>
         <SnippetContainer
           onClick={() => window.open(post.url, "_blank").focus()}
@@ -26,7 +85,14 @@ export default function Post({ post }) {
           <InfoContainer>
             <p className="title">{post.urlTitle}</p>
             <p className="url-description">{post.urlDescription}</p>
-            <a href={post.url}>{post.url}</a>
+            <a
+              href={post.url}
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              {post.url}
+            </a>
           </InfoContainer>
           <ImageContainer urlImage={post.urlImage}></ImageContainer>
         </SnippetContainer>
@@ -43,12 +109,35 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin: 12px 0 10px 0;
+
+  @media (max-width: 613px) {
+    border-radius: 0;
+  }
 `;
 
 const PictureContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   img {
     height: 50px;
     border-radius: 50%;
+  }
+
+  button {
+    margin-top: 12px;
+    background-color: #171717;
+    color: #ffffff;
+    border: none;
+    font-size: 20px;
+  }
+
+  p {
+    color: #ffffff;
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
   }
 `;
 
@@ -64,12 +153,22 @@ const ContentContainer = styled.div`
     font-size: 19px;
     color: #ffffff;
     margin-bottom: 8px;
+
+    @media (max-width: 613px) {
+      font-size: 17px;
+      line-height: 20px;
+    }
   }
   p.description {
     font-weight: 400;
     font-size: 17px;
     color: #b7b7b7;
     margin-bottom: 10px;
+
+    @media (max-width: 613px) {
+      font-size: 15px;
+      line-height: 18px;
+    }
   }
   .hashtag{
     font-weight:900
@@ -90,7 +189,13 @@ const InfoContainer = styled.div`
     font-weight: 400;
     font-size: 18px;
     line-height: 28px;
+    margin-bottom: 5px;
     color: #cecece;
+
+    @media (max-width: 613px) {
+      font-size: 11px;
+      line-height: 13px;
+    }
   }
   p.url-description {
     font-weight: 400;
@@ -98,12 +203,23 @@ const InfoContainer = styled.div`
     line-height: 18px;
     color: #9b9595;
     margin-bottom: 8px;
+
+    @media (max-width: 613px) {
+      font-size: 9px;
+      line-height: 11px;
+    }
   }
   a {
     font-weight: 400;
     font-size: 14px;
     line-height: 16px;
     color: #cecece;
+    text-decoration: none;
+
+    @media (max-width: 613px) {
+      font-size: 9px;
+      line-height: 11px;
+    }
   }
 `;
 
@@ -113,4 +229,5 @@ const ImageContainer = styled.div`
   background-image: url(${(props) => props.urlImage});
   background-position: center;
   background-size: cover;
+  margin-left: 7px;
 `;
