@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
@@ -22,12 +21,11 @@ export default function SignIn() {
 
   async function handleSignin() {
     try {
-      const URL = api+"sign-in";
       const body = {
         email: formData.email,
         password: formData.password,
       };
-      const response = await axios.post(URL, body);
+      const response = await api.post("sign-in", body);
       handleSuccess(response);
     } catch (error) {
       console.log(error);
