@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
+import UserContext from "../contexts/UserContext";
 
 export default function Header() {
+  const { user } = useContext(UserContext);
   return (
     <Container>
       <p>linkr</p>
@@ -15,10 +17,7 @@ export default function Header() {
             <BsChevronDown />
           </button>
         </IconContext.Provider>
-        <img
-          src="https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg"
-          alt="profile-pic"
-        />
+        <img src={user.pictureURL} alt="profile-pic" />
       </section>
     </Container>
   );
@@ -45,7 +44,7 @@ const Container = styled.div`
     letter-spacing: 0.05em;
   }
 
-  .search{
+  .search {
     width: 60%;
     position: absolute;
     top: 50%;

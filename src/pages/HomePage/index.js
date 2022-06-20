@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import Header from "../../components/Header";
 import Post from "../../components/Post";
+import TokenContext from "../../contexts/TokenContext";
+import UserContext from "../../contexts/UserContext";
 import { getAllPosts, publishPost } from "../../services/api";
 import {
   Main,
@@ -9,30 +11,35 @@ import {
   NewPostContainer,
   PictureContainer,
   InputsContainer,
-  Message
+  Message,
 } from "./style";
 
 const HomePage = () => {
+  const { token } = useContext(TokenContext);
+  const { user } = useContext(UserContext);
+
   return (
     <>
       <Header />
       <Container>
         <Main>
           <h2>timeline</h2>
-          <NewPost />
-          <section>{RenderPosts()}</section>
+          <NewPost token={token} user={user} />
+          <section>
+            <RenderPosts token={token} />
+          </section>
         </Main>
       </Container>
     </>
   );
 };
 
-const RenderPosts = () => {
+const RenderPosts = ({ token }) => {
   const [posts, setPosts] = useState();
 
   useEffect(() => {
     (() => {
-      const response = getAllPosts();
+      const response = getAllPosts(token);
       response.then((res) => setPosts(res.data));
       response.catch((e) =>
         alert(
@@ -42,18 +49,14 @@ const RenderPosts = () => {
     })();
   }, []);
 
-  if (!posts)
-    return (<Message>Loading...</Message>);
+  if (!posts) return <Message>Loading...</Message>;
 
-  if (!posts.length)
-    return (
-      <Message>There are no posts yet</Message>
-    );
+  if (!posts.length) return <Message>There are no posts yet</Message>;
 
   return posts.map((post, index) => <Post post={post} key={index} />);
 };
 
-const NewPost = () => {
+const NewPost = ({ token, user }) => {
   const [formData, setFormData] = useState({
     url: "",
     description: "",
@@ -76,7 +79,7 @@ const NewPost = () => {
     setIsLoading({ ...isLoading });
 
     try {
-      await publishPost({ ...formData });
+      await publishPost({ ...formData }, token);
 
       isLoading.placeholder = "Publish";
       isLoading.disabled = false;
@@ -98,10 +101,7 @@ const NewPost = () => {
   return (
     <NewPostContainer>
       <PictureContainer>
-        <img
-          src="https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg"
-          alt="profile-pic"
-        />
+        <img src={user.pictureURL} alt="profile-pic" />
       </PictureContainer>
       <InputsContainer>
         <span>What are you going to share today?</span>
