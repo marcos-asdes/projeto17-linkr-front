@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 
 import Header from "../../components/Header";
 import Post from "../../components/Post";
+import Trending from "../../components/Trending";
 import TokenContext from "../../contexts/TokenContext";
 import UserContext from "../../contexts/UserContext";
 import { getAllPosts, publishPost } from "../../services/api";
@@ -29,6 +30,7 @@ const HomePage = () => {
             <RenderPosts token={token} />
           </section>
         </Main>
+        <Trending />
       </Container>
     </>
   );

@@ -2,19 +2,29 @@ import { Link } from "react-router-dom";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import styled from "styled-components";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 import { dislikePost, likePost } from "../services/api";
-// import UserContext from "./../contexts/UserContext.js";
+import UserContext from "./../contexts/UserContext.js";
 import TokenContext from "../contexts/TokenContext";
 
 export default function Post({ post }) {
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { token } = useContext(TokenContext);
 
   const [like, setLike] = useState(false);
   const [countLikes, setCountLikes] = useState(post.countLikes);
-  const [tooltip, setTooltip] = useState("teste");
+  const [tooltip, setTooltip] = useState(post.countLikes);
+
+  useEffect(() => {
+    let userLiked;
+    if (post.likes.length) {
+      userLiked = post.likes.find((item) => item.userId === user.id);
+    }
+    if (userLiked) {
+      setLike(!like);
+    }
+  }, []);
 
   function readHashtags(word) {
     if (word[0] === "#") {
@@ -99,7 +109,6 @@ export default function Post({ post }) {
         <img src={post.pictureURL} alt="" />
         <IconContext.Provider value={{ className: "react-icons" }}>
           <button
-            like={like.toString()}
             onClick={() => {
               // getTooltip();
               if (like === true) {
