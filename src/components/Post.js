@@ -16,15 +16,15 @@ export default function Post({ post }) {
   const [countLikes, setCountLikes] = useState(post.countLikes);
   const [tooltip, setTooltip] = useState(post.countLikes);
 
-  useEffect(() => {
-    let userLiked;
-    if (post.likes.length) {
-      userLiked = post.likes.find((item) => item.userId === user.id);
-    }
-    if (userLiked) {
-      setLike(!like);
-    }
-  }, []);
+  // useEffect(() => {
+  //   let userLiked;
+  //   if (post.likes.length) {
+  //     userLiked = post.likes.find((item) => item.userId === user.id);
+  //   }
+  //   if (userLiked) {
+  //     setLike(!like);
+  //   }
+  // }, []);
 
   function readHashtags(word) {
     if (word[0] === "#") {
