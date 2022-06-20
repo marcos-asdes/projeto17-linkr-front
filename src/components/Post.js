@@ -2,13 +2,33 @@ import { Link } from "react-router-dom";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import styled from "styled-components";
-import { useState } from "react";
+import {Link} from 'react-router-dom'
+import { useEffect, useState } from "react";
 import ReactTooltip from "react-tooltip";
 import { dislikePost, likePost } from "../services/api";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(false);
   const [countLikes, setCountLikes] = useState(post.countLikes);
+  
+  function readHashtags(word){
+    if(word[0]==='#') {
+      return(
+        <Link to={`/hashtag/${word.replace('#', '')}`}>
+          <span className="hashtag">{word}</span>
+        </Link>
+      )
+    } else {
+      return(<span>{word}</span>)
+    };
+  }
+  
+  const newList = [];
+  const oldList = post.description.split(' ');
+  for(let k=0; k < oldList.length; k++){
+    newList.push(oldList[k])
+    if(k!=oldList.length-1){newList.push(' ')}
+  }
 
   function getTooltip(likes) {
     if (likes.length) {
@@ -58,7 +78,7 @@ export default function Post({ post }) {
         <Link to={`/user/${post.userId}`}>
           <p className="username">{post.username}</p>
         </Link>
-        <p className="description">{post.description}</p>
+        <p className="description">{newList.map(readHashtags)}</p>
         <SnippetContainer
           onClick={() => window.open(post.url, "_blank").focus()}
         >
@@ -149,6 +169,9 @@ const ContentContainer = styled.div`
       font-size: 15px;
       line-height: 18px;
     }
+  }
+  .hashtag{
+    font-weight:900
   }
 `;
 
