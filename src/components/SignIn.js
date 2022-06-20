@@ -4,7 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components";
 
-import TokenContext from "../contexts/TokenContext"; // testing
+import TokenContext from "../contexts/TokenContext.js";
+import UserContext from "../contexts/UserContext.js";
 
 export default function SignIn() {
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -14,32 +15,32 @@ export default function SignIn() {
     password: "",
   });
 
-  const setToken = useContext(TokenContext);
+  const { setToken } = useContext(TokenContext);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
- async function handleSignin() {
-        try {
-            const URL = "http://localhost:5000/auth/sign-in";
-            const body = {
-                email: formData.email,
-                password: formData.password
-            }
-            const response = await axios.post(URL, body);
-            response.status === 200 ? handleSuccess(response.token) : handleError(response.data);
-        } catch (error){
-            console.log(error);
-            resetAll();
-        }
+  async function handleSignin() {
+    try {
+      const URL = "http://localhost:5000/sign-in";
+      const body = {
+        email: formData.email,
+        password: formData.password,
+      };
+      const response = await axios.post(URL, body);
+      handleSuccess(response);
+    } catch (error) {
+      console.log(error);
+      resetAll();
+    }
   }
 
   function handleSuccess(res) {
-    setToken(res.token);
-    navigate("/timeline");
-  }
+    setToken(res.data.token);
+    setUser(res.data.user);
+    localStorage.setItem("token", JSON.stringify(res.data.token));
+    localStorage.setItem("user", JSON.stringify(res.data.user));
 
-  function handleError(res) {
-    console.log(res.error);
-    resetAll();
+    navigate("/timeline");
   }
 
   function resetAll() {

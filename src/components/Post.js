@@ -2,24 +2,71 @@ import { Link } from "react-router-dom";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 import { dislikePost, likePost } from "../services/api";
+import UserContext from "./../contexts/UserContext.js";
+import TokenContext from "../contexts/TokenContext";
 
 export default function Post({ post }) {
+  const { user } = useContext(UserContext);
+  const { token } = useContext(TokenContext);
+
   const [like, setLike] = useState(false);
   const [countLikes, setCountLikes] = useState(post.countLikes);
+  const [tooltip, setTooltip] = useState("teste");
 
-  function getTooltip(likes) {
-    if (likes.length) {
-      // const notUser = likes.filter((item) => item.id !== user.id);
-      console.log(likes);
-      return likes[0].username;
-    }
-    if (!likes.length) {
-      return "No likes yet";
-    }
-  }
+  // useEffect(() => {
+  //   getTooltip();
+  // }, []);
+
+  // function getTooltip() {
+  //   const likes = post.likes;
+  //   if (likes.length) {
+  //     const notUser = likes.filter((item) => item.id !== user.id);
+  //     const namesNotUser = notUser.map((item) => item.username);
+  //     if (likes.filter((item) => item.id === user.id).length > 0) {
+  //       if (namesNotUser.length === 0) {
+  //         setTooltip("You");
+  //       }
+  //       if (namesNotUser.length === 1) {
+  //         setTooltip("You and " + namesNotUser[0]);
+  //       } else if (namesNotUser.length === 2) {
+  //         setTooltip("You, " + namesNotUser[0] + " and another person");
+  //       } else if (namesNotUser.length > 2) {
+  //         setTooltip(
+  //           "You, " +
+  //             namesNotUser[0] +
+  //             " and " +
+  //             (likes.length - 2) +
+  //             " other people"
+  //         );
+  //       }
+  //     } else {
+  //       if (namesNotUser.length === 0) {
+  //         setTooltip(null);
+  //       }
+  //       if (namesNotUser.length === 1) {
+  //         setTooltip(namesNotUser[0]);
+  //       } else if (namesNotUser.length === 2) {
+  //         setTooltip(namesNotUser[0] + " e " + namesNotUser[1]);
+  //       } else if (namesNotUser.length === 3) {
+  //         setTooltip(
+  //           namesNotUser[0] + ", " + namesNotUser[1] + ", and another person"
+  //         );
+  //       } else if (namesNotUser.length > 3) {
+  //         setTooltip(
+  //           namesNotUser[0] +
+  //             ", " +
+  //             namesNotUser[1] +
+  //             ", and " +
+  //             (likes.length - 2) +
+  //             " other people"
+  //         );
+  //       }
+  //     }
+  //   }
+  // }
 
   return (
     <PostContainer key={post.postId}>
@@ -29,12 +76,13 @@ export default function Post({ post }) {
           <button
             like={like.toString()}
             onClick={() => {
+              // getTooltip();
               if (like === true) {
-                dislikePost({ postId: post.postId });
+                dislikePost({ postId: post.postId }, token);
                 setCountLikes(Number(countLikes) - 1);
               }
               if (like === false) {
-                likePost({ postId: post.postId });
+                likePost({ postId: post.postId }, token);
                 setCountLikes(Number(countLikes) + 1);
               }
               setLike(!like);
@@ -49,9 +97,9 @@ export default function Post({ post }) {
         </IconContext.Provider>
         <ReactTooltip place="bottom" type="light" effect="solid" />
         {countLikes === 1 ? (
-          <p data-tip={getTooltip(post.likes)}>{countLikes} like</p>
+          <p data-tip={tooltip}>{countLikes} like</p>
         ) : (
-          <p data-tip={getTooltip(post.likes)}>{countLikes} likes</p>
+          <p data-tip={tooltip}>{countLikes} likes</p>
         )}
       </PictureContainer>
       <ContentContainer>
