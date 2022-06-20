@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components";
 
+import { api } from "../services/api.js";
 import TokenContext from "../contexts/TokenContext.js";
 import UserContext from "../contexts/UserContext.js";
 
@@ -21,7 +22,7 @@ export default function SignIn() {
 
   async function handleSignin() {
     try {
-      const URL = "http://localhost:5000/sign-in";
+      const URL = api+"sign-in";
       const body = {
         email: formData.email,
         password: formData.password,

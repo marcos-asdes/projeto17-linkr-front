@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:5000", // AQUI VAI ENTRAR O LINK DO DEPLOY DO BACK
+  baseURL: "https://projeto17-linkr-back.herokuapp.com/",
 });
 
 export const publishPost = async (formData, token) => {

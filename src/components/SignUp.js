@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components";
 
+import { api } from "../services/api.js";
+
 export default function SignIn() {
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -18,7 +20,7 @@ export default function SignIn() {
 
   async function handleSignup() {
     try {
-      const URL = "http://localhost:5000/sign-up";
+      const URL = api+"sign-up";
       const body = {
         email: formData.email,
         password: formData.password,
