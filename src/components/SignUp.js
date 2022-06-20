@@ -28,7 +28,7 @@ export default function SignIn() {
         imageURL: formData.imageURL,
       };
       const response = await axios.post(URL, body);
-      handleSuccess();
+      handleSuccess(response);
     } catch (error) {
       console.log(error);
       resetAll();
