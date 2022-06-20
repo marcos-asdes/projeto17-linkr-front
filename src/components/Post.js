@@ -171,7 +171,6 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin: 12px 0 10px 0;
-
   @media (max-width: 613px) {
     border-radius: 0;
   }
@@ -184,7 +183,6 @@ const PictureContainer = styled.div`
     height: 50px;
     border-radius: 50%;
   }
-
   button {
     margin-top: 12px;
     background-color: #171717;
@@ -192,7 +190,6 @@ const PictureContainer = styled.div`
     border: none;
     font-size: 20px;
   }
-
   p {
     color: #ffffff;
     font-family: "Lato";
@@ -209,13 +206,11 @@ const ContentContainer = styled.div`
   margin-left: 15px;
   display: flex;
   flex-direction: column;
-
   p.username {
     font-weight: 400;
     font-size: 19px;
     color: #ffffff;
     margin-bottom: 8px;
-
     @media (max-width: 613px) {
       font-size: 17px;
       line-height: 20px;
@@ -226,7 +221,6 @@ const ContentContainer = styled.div`
     font-size: 17px;
     color: #b7b7b7;
     margin-bottom: 10px;
-
     @media (max-width: 613px) {
       font-size: 15px;
       line-height: 18px;
@@ -253,7 +247,6 @@ const InfoContainer = styled.div`
     line-height: 28px;
     margin-bottom: 5px;
     color: #cecece;
-
     @media (max-width: 613px) {
       font-size: 11px;
       line-height: 13px;
@@ -265,7 +258,6 @@ const InfoContainer = styled.div`
     line-height: 18px;
     color: #9b9595;
     margin-bottom: 8px;
-
     @media (max-width: 613px) {
       font-size: 9px;
       line-height: 11px;
@@ -278,7 +270,6 @@ const InfoContainer = styled.div`
     line-height: 16px;
     color: #cecece;
     text-decoration: none;
-
     @media (max-width: 613px) {
       font-size: 9px;
       line-height: 11px;
