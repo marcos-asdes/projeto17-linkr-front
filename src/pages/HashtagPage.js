@@ -48,6 +48,10 @@ const Container = styled.div`
   width: 100%;
   background-color: #333333;
   padding-top: 3%;
+
+  @media (max-width: 613px) {
+    margin-top: 60px;
+  }
 `;
 
 const Main = styled.div`
